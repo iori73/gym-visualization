@@ -1,0 +1,231 @@
+/** @format */
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+/* ------- */
+.information {
+  position: fixed;
+  top: 4vh;
+  left: 4vw;
+  z-index: 99;
+}
+
+.content_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  position: relative;
+}
+
+.imgs_container {
+  position: absolute;
+  z-index: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  width: 40%;
+
+  margin: 0 auto;
+  /* transform: rotateX(45deg) rotateZ(-45deg); */
+  /* transform-style: preserve-3d; */
+}
+
+.imgs_container img {
+  max-width: 15%;
+}
+
+/* isometric box */
+/* https://www.bypeople.com/3d-isometric-element-css/ */
+
+.box_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  gap: 2rem;
+}
+
+.box {
+  position: relative;
+  display: inline-block;
+  font-size: 0;
+  border-radius: 4px;
+}
+.box .face,
+.box .shadow {
+  transition: all 0.6s ease-in-out;
+  border-radius: 4px;
+}
+/* .box:hover .face,
+.box:hover .shadow {
+  transform: rotateX(0) rotateZ(0);
+  transition: all 0.6s ease-in-out;
+  border-radius: 4px;
+}
+.box:hover .shadow {
+  box-shadow: 0 0 10px #ccc;
+} */
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  transform: rotateX(45deg) rotateZ(-45deg);
+  transform-style: preserve-3d;
+  z-index: -1;
+  box-shadow: -20px 20px 10px #eee;
+}
+.face {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  background-color: #f2f2f2;
+  margin: 0 auto;
+  transform: rotateX(45deg) rotateZ(-45deg);
+  transform-style: preserve-3d;
+  border-radius: 4px;
+}
+
+.rectangle {
+  min-width: 100px;
+  min-height: 100px;
+  background-color: #f2f2f2;
+  border-radius: 4px;
+}
+
+/* .face:before {
+  content: "";
+  position: absolute;
+  bottom: -2.5px;
+  left: 0;
+  background-color: #ddd;
+  width: 100%;
+  height: 5px;
+  display: block;
+  transform: rotateX(90deg) translateY(-2.5px);
+}
+.face:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -2.5px;
+  width: 5px;
+  height: 100%;
+  background-color: #c4c4c4;
+  transform: rotateY(90deg) translateX(2.5px);
+} */
+
+/* box */
+
+.flat_box_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  gap: 1rem;
+  flex-wrap: wrap;
+  width: 60%;
+  /* width: 700px; */
+
+  margin: 0 auto;
+  transform: rotateX(45deg) rotateZ(-45deg);
+  transform-style: preserve-3d;
+  position: absolute;
+}
+
+@media (max-width: 768px) {
+  .flat_box_container {
+    width: 190%;
+  }
+}
+
+@media (min-width: 1327px) {
+  .flat_box_container {
+    width: 50%;
+  }
+}
+
+.flat_box {
+  position: relative;
+  display: inline-block;
+  font-size: 0;
+  border-radius: 4px;
+}
+.flat_box .flat_face,
+.flat_box .flat_shadow {
+  transition: all 0.6s ease-in-out;
+  border-radius: 4px;
+}
+
+.flat_shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  transform: rotateX(45deg) rotateZ(-45deg);
+  transform-style: preserve-3d;
+  z-index: -1;
+  box-shadow: -20px 20px 10px #e1e2e3;
+}
+.flat_face {
+  position: relative;
+  display: inline-block;
+  margin: 0 auto;
+  background-color: #d3ecff;
+  margin: 0 auto;
+
+  border-radius: 4px;
+}
+
+.flat_rectangle {
+  min-width: 100px;
+  min-height: 100px;
+  background-color: #d3ecff;
+  border-radius: 4px;
+}
