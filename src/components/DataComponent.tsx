@@ -171,13 +171,13 @@ import Box from "./Box";
 
 interface CsvRow {
   Time: string;
-  [key: string]: string; // Assuming all other keys are dynamic but have string values
+  [key: string]: string | undefined; // Assuming all other keys are dynamic but have string values
 }
 
 
 
 const DataComponent = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<CsvRow[]>([]);
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedTime, setSelectedTime] = useState("");
   const [timeOptions, setTimeOptions] = useState<string[]>([]);
@@ -185,19 +185,34 @@ const DataComponent = () => {
   useEffect(() => {
     async function fetchData() {
       const response = await fetch("/data.csv");
+      if (!response.body) throw new Error("Failed to get response body");
       const reader = response.body.getReader();
       const result = await reader.read();
       const decoder = new TextDecoder("utf-8");
       const csv = decoder.decode(result.value);
 
-      Papa.parse(csv, {
+      // Papa.parse(csv, {
+      //   header: true,
+      //   complete: (results) => {
+      //     setData(results.data);
+      //     setTimeOptions(results.data.map((row) => row.Time));
+      //     setSelectedDate(
+      //       Object.keys(results.data[0]).find((k) => k !== "Time")
+      //     );
+      //   },
+      // });
+      // In your fetch function
+      Papa.parse<CsvRow>(csv, {
         header: true,
         complete: (results) => {
-          setData(results.data);
-          setTimeOptions(results.data.map((row) => row.Time));
-          setSelectedDate(
-            Object.keys(results.data[0]).find((k) => k !== "Time")
+          setData(results.data as CsvRow[]);
+          const dates = Object.keys(results.data[0]).filter(
+            (k) => k !== "Time"
           );
+          if (dates.length > 0) {
+            setSelectedDate(dates[0]);
+            setTimeOptions(results.data.map((d) => d.Time));
+          }
         },
       });
     }
@@ -213,9 +228,16 @@ const DataComponent = () => {
     setSelectedTime(event.target.value);
   };
 
+  // const getNumberOfPeople = () => {
+  //   const timeData = data.find((row) => row.Time === selectedTime);
+  //   return timeData ? timeData[selectedDate] || "0" : "0";
+  // };
+  // In getNumberOfPeople function
   const getNumberOfPeople = () => {
-    const timeData = data.find((row) => row.Time === selectedTime);
-    return timeData ? timeData[selectedDate] || "0" : "0";
+    const timeData = data.find((d) => d.Time === selectedTime) as
+      | CsvRow
+      | undefined;
+    return timeData && selectedDate ? timeData[selectedDate] || "0" : "0";
   };
 
   //images
@@ -282,11 +304,7 @@ const DataComponent = () => {
         {/* imgs */}
         <div className="imgs_container">
           {getImagesToDisplay().map((src, index) => (
-            <img
-              key={index}
-              src={src}
-              alt="Gym activity"
-            />
+            <img key={index} src={src} alt="Gym activity" />
           ))}
         </div>
         {/* isometric box */}
@@ -312,8 +330,8 @@ const DataComponent = () => {
         </div> */}
         {/* Box */}
         <div className="flat_box_container">{renderBoxes()}</div>
-            </div>
       </div>
+    </div>
   );
 };
 

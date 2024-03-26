@@ -2,7 +2,6 @@
 
 // src/components/Box.tsx
 
-import React from "react";
 
 const Box = () => {
   return (
